@@ -1,3 +1,5 @@
+# CREDITS TO https://www.youtube.com/c/CodePulse FOR HIS VIDS ON WHICH THIS PROGRAM IS BASED ON
+
 def string_with_arrows(text, pos_start, pos_end):
     result = ''
 

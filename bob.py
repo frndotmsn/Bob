@@ -104,7 +104,7 @@ class Bot(discord.Client):
         fstream.close()
 
     def load(self):
-        fstream = open(self.configfilename, 'r')
+        fstream = open(self.configfilename, 'r', encoding="utf-8")
         self.data = json.loads(fstream.read())
         fstream.close()
 
@@ -117,21 +117,21 @@ class Bot(discord.Client):
             await msg.channel.send("Der den du mit -name angegeben hast, befindet sich nicht in der Klassenliste!")
             return
 
-        AdjListe = ["edle", "pizzaliebhabende", "drogenabhängige", "eingebildete", "begabte", "dumme", "unbegabte", "unbeholfene", "nachdenkliche", "zufällige", "aggressive", "unsportliche", "intelligente", "fröhliche", "unzufriedene", "gewalttätige", "hinterlistige", "entspannte", "unbekannte", "berühmte", "beliebte", "verrückte", "durchgedrehte", "abgedrehte", "nice", "attraktive", "hübsche", "hässliche", "heiße", "", "", "", "", "", "", "", "", "", "", "" ]
-        ÜbertreibungListe = ["sehr ", "sehr, sehr ", "unglaublich ", "", "", "", "", "", "", "" ]
-        FListe = ["Professorin", "Krankheit", "Frau", "Herrscherin", "Psychopathin", "Psycho-unlogin", "Persönlichkeit", "Lehrkraft", "Waffe" ]
-        MListe = ["Mensch", "Pizzaliebhaber", "Drogenabhängiger", "Killerroboter", "Programmierer", "Professor", "Profisportler", "Stalker", "Anime-fan", "Hentai-fan", "Mann", "Herrscher", "Psychoterrorpeut", "Psychopath", "Japanda", "Psycho-unloge", "Verschwörungstheoretiker", "Freund", "Feind", "Auftragsmörder", "Unternehmer", "Junge" ]
-        NListe = ["Geburtstagskind", "Lebewesen", "Intelligenzbölzchen", "Tier", "Spielzeug", "Unternehmen", "Mädchen" ]
+        AdjListe = self.data["words"]["adjectives"]
+        ÜbertreibungListe = self.data["words"]["exaggerations"]
+        FListe = self.data["words"]["substantives"]["feminine"]
+        MListe = self.data["words"]["substantives"]["masculine"]
+        NListe = self.data["words"]["substantives"]["feminine"]
 
         SubstListe = FListe + MListe + NListe
 
         Subst = SubstListe[random.randint(0, len(SubstListe)-1)]
         adj1 = AdjListe[random.randint(0, len(AdjListe)-12)]
         adj2 = AdjListe[random.randint(0, len(AdjListe)-12)]
-        adj3 = AdjListe[random.randint(0, len(AdjListe)-1)]
-        Übertreibung1 = ÜbertreibungListe[random.randint(0, len(ÜbertreibungListe)-1)]
-        Übertreibung2 = ÜbertreibungListe[random.randint(0, len(ÜbertreibungListe)-1)]
-        Übertreibung3 = ÜbertreibungListe[random.randint(0, len(ÜbertreibungListe)-1)]
+        adj3 = "" if random.randint(0, 1) < 1 else AdjListe[random.randint(0, len(AdjListe)-1)]
+        Übertreibung1 = "" if random.randint(0, 1) < 1 else ÜbertreibungListe[random.randint(0, len(ÜbertreibungListe)-1)] + " "
+        Übertreibung2 = "" if random.randint(0, 1) < 1 else ÜbertreibungListe[random.randint(0, len(ÜbertreibungListe)-1)] + " "
+        Übertreibung3 = "" if random.randint(0, 1) < 1 else ÜbertreibungListe[random.randint(0, len(ÜbertreibungListe)-1)] + " "
         RelSubstListeOhneNamen = [ "die Welt", "Deutschland", "Gott", "Jesus", "Sushi" ]
         RelSubstListeMitADJ3 = [ " Menschen", " Pizza", " Pizzen", " Tiere", " Jungs", " Mädchen", " Programmierer", " Psychopathinnen" ]
 
@@ -144,8 +144,13 @@ class Bot(discord.Client):
             else:
                 RelSubst = (adj3 + RelSubstListeMitADJ3[random.randint(0, len(RelSubstListeMitADJ3-1))]).strip()
 
-        RelListe = [ RelSubst + " hasst!", Übertreibung3 + "gerne " + RelSubst + " fressen würde!", Übertreibung3 + "gerne " + RelSubst + " dated!", Übertreibung3 + "gerne " + RelSubst + " tötet!", Übertreibung3 + "gerne " + RelSubst + " stalked!", Übertreibung3 + "gerne " + RelSubst + " daten würde!", RelSubst + " über alles liebt!", RelSubst + " heiraten möchte!", RelSubst + " vernichten möchte!", "täglich " + RelSubst + " foltert!", RelSubst + " verachtet!", "an " + RelSubst + " glaubt!", RelSubst + " kennt!", RelSubst + " um Hilfe bittet!", RelSubst + " anbetet!" ]
-        rel = RelListe[random.randint(0, len(RelListe)-1)]
+        RelListe = self.data["relListe"]
+        REL = RelListe[random.randint(0, len(RelListe)-1)]
+
+        rel = ""
+        if random.randint(0, 2) > 1:
+            rel += Übertreibung3 + "gerne "
+        rel += (REL.replace(",", " " + RelSubst + " ") if "," in REL else RelSubst + " " + REL) + "!"
 
         artikel = ""
         relpronomen = ""

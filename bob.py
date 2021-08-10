@@ -8,6 +8,8 @@ import discord
 
 import basic
 
+#HOPEFULLY THE COMMIT WORKS NOW!
+
 class Bot(discord.Client):
 
     configfilename = "bob.json"

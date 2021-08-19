@@ -98,7 +98,7 @@ namespace bob
                     this._commands.Add(info.Name.ToLower(), info);
             }
 
-            string token = "Nzg4OTAzOTkwNTMxMTk0OTcw.X9qSGA.kKQ7uyjpemk62nhd78Uxp01axZo" /*await System.IO.File.ReadAllTextAsync("token.txt")*/;
+            string token = await System.IO.File.ReadAllTextAsync("token.txt");
 
             this._client.Log += this._client_Log;
 

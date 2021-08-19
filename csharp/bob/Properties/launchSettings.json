@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "bob": {
+      "commandName": "Project",
+      "workingDirectory": "D:\\Visual Studio Projects\\Discord\\Bots\\Bob"
+    }
+  }
+}

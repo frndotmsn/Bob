@@ -1,3 +1,6 @@
 /__pycache__
 token.txt
 bob.json
+csharp/bob/.vs
+csharp/bob/bin
+csharp/bob/obj

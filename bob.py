@@ -126,14 +126,14 @@ class Bot(discord.Client):
         SubstListe = FListe + MListe + NListe
 
         Subst = SubstListe[random.randint(0, len(SubstListe)-1)]
-        adj1 = AdjListe[random.randint(0, len(AdjListe)-12)]
-        adj2 = AdjListe[random.randint(0, len(AdjListe)-12)]
+        adj1 = AdjListe[random.randint(0, len(AdjListe)-1)]
+        adj2 = AdjListe[random.randint(0, len(AdjListe)-1)]
         adj3 = "" if random.randint(0, 1) < 1 else AdjListe[random.randint(0, len(AdjListe)-1)]
         Übertreibung1 = "" if random.randint(0, 1) < 1 else ÜbertreibungListe[random.randint(0, len(ÜbertreibungListe)-1)] + " "
         Übertreibung2 = "" if random.randint(0, 1) < 1 else ÜbertreibungListe[random.randint(0, len(ÜbertreibungListe)-1)] + " "
         Übertreibung3 = "" if random.randint(0, 1) < 1 else ÜbertreibungListe[random.randint(0, len(ÜbertreibungListe)-1)] + " "
-        RelSubstListeOhneNamen = [ "die Welt", "Deutschland", "Gott", "Jesus", "Sushi" ]
-        RelSubstListeMitADJ3 = [ " Menschen", " Pizza", " Pizzen", " Tiere", " Jungs", " Mädchen", " Programmierer", " Psychopathinnen" ]
+        RelSubstListeOhneNamen = self.data["relSubst"]["ohneNamen"]
+        RelSubstListeMitADJ3 = self.data["relSubst"]["mitADJ3"]
 
         RelSubst = ""
         if ((random.randint(0, len(klassenliste) * 3 + len(RelSubstListeOhneNamen) + len(RelSubstListeMitADJ3) - 1) < (len(klassenliste) * 3))):
@@ -142,7 +142,7 @@ class Bot(discord.Client):
             if (random.randint(0, len(RelSubstListeOhneNamen) + len(RelSubstListeMitADJ3) - 1) < len(RelSubstListeOhneNamen)):
                 RelSubst = RelSubstListeOhneNamen[random.randint(0, len(RelSubstListeOhneNamen)-1)]
             else:
-                RelSubst = (adj3 + RelSubstListeMitADJ3[random.randint(0, len(RelSubstListeMitADJ3-1))]).strip()
+                RelSubst = (adj3 + RelSubstListeMitADJ3[random.randint(0, len(RelSubstListeMitADJ3-1))] + " ").strip()
 
         RelListe = self.data["relListe"]
         REL = RelListe[random.randint(0, len(RelListe)-1)]
@@ -194,7 +194,6 @@ class Bot(discord.Client):
             await msg.channel.send("Ihre Datei wurde als Hausaufgabe abgespeichert!")
             return
         #if arg["typ"].lower() == "get":
-
 
 #    async def _HA(self, msg, arg):
 #        FÄCHER = ["mathe", "deutsch"]

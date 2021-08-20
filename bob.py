@@ -121,7 +121,7 @@ class Bot(discord.Client):
         ÜbertreibungListe = self.data["words"]["exaggerations"]
         FListe = self.data["words"]["substantives"]["feminine"]
         MListe = self.data["words"]["substantives"]["masculine"]
-        NListe = self.data["words"]["substantives"]["feminine"]
+        NListe = self.data["words"]["substantives"]["neutral"]
 
         SubstListe = FListe + MListe + NListe
 
